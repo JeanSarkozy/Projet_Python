@@ -2,8 +2,9 @@
 """
 Created on Tue Jan  5 14:19:10 2021
 
-@author: Chloé
+@author: Chloé et Pierre
 """
+#import des librairies
 
 import praw 
 import urllib.request
@@ -14,8 +15,9 @@ from gensim.summarization.summarizer import summarize
 from wordcloud import WordCloud, ImageColorGenerator
 import matplotlib.pyplot as plt
     
-#Partie 2 
+#-------Classes
 
+#classe Corpus
 class Corpus():
     
     def __init__(self,name):
@@ -78,10 +80,9 @@ class Corpus():
     
     def save(self,file):
             pickle.dump(self, open(file, "wb" ))
+  
         
-      
-        
-
+#classe Auteur           
 class Author():
     def __init__(self,name):
         self.name = name
@@ -98,17 +99,7 @@ class Author():
         return self.name
     
 
-
-
-# package permettant d'incrémenter l'identifiant unique à attribuer à un document
-#import itertools
-
-#
 # classe mère permettant de modéliser un Document (au sens large)
-#
-#from gensim.summarization.summarizer import summarize
-
-
 class Document():
     
     # constructor
@@ -153,9 +144,8 @@ class Document():
     def getType(self):
         pass
   
+    
 # classe fille permettant de modéliser un Document Reddit
-#
-
 class RedditDocument(Document):
     
     def __init__(self, date, title,
@@ -175,10 +165,8 @@ class RedditDocument(Document):
         #return(super().__str__(self) + " [" + self.num_comments + " commentaires]")
         return Document.__str__(self) + " [" + str(self.num_comments) + " commentaires]"
     
-#
-# classe fille permettant de modéliser un Document Arxiv
-#
 
+# classe fille permettant de modéliser un Document Arxiv
 class ArxivDocument(Document):
     
     def __init__(self, date, title, author, text, url, coauteurs):
@@ -205,13 +193,9 @@ class ArxivDocument(Document):
             return s + " [" + str(self.get_num_coauteurs()) + " co-auteurs]"
         return s
 
+#-------Fonctions 
 
-
-  
-    
-
-
-
+#Fonction permettant d'enlever les espaces, retours à la lignes et symboles 
 def nettoyer_texte (string):
     string = string.lower()
     string = string.replace('\n', ' ')
@@ -219,7 +203,8 @@ def nettoyer_texte (string):
     string = string.translate ({ord(c): " " for c in "!@#$%^&*()[]{};:,./<>?\|`~=_+1234567890"})   
     return string
   
-
+    
+#Fonction permettant d'afficher un nuage de mot à partir d'une str
 def nuage_mots(ch):
     wc = WordCloud()
     wc.generate(ch) 
@@ -227,6 +212,8 @@ def nuage_mots(ch):
     plt.axis("off")
     plt.show()
                
+ 
+#Fonction permettant d'afficher un histogramme à partir d'un dataframe
 def histogramme(df):
     df.plot.bar(x='mois', y='mot clé')
     

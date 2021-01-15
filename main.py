@@ -5,7 +5,7 @@ Created on Fri Nov 27 00:21:15 2020
 @author: Chloé et Pierre
 """
     
-#--------librairie ---------
+# import des librairies
 import praw
 import datetime as dt
 import urllib.request
@@ -19,10 +19,9 @@ import matplotlib.pyplot as plt
 
 
 
-################################## Création du Corpus ##################################
+#-------Création du Corpus 
 
 corpus = Corpus("Corona")
-
 
 
 reddit = praw.Reddit(client_id='0AlqCfHuOc5Hkg', client_secret='80PspjYMdTvF91ti9qZeWzAS2BU', user_agent='Reddit Irambique')
@@ -80,9 +79,8 @@ print()
 print("Enregistrement du corpus sur le disque...")
 corpus.save("Corona.crp")
 
-#------ traitement ------- 
 
-
+#------ traitement et creation du corpus commun ainsi que des corpus Reddit & Arxiv
 ch = ""
 ch_reddit = ""
 ch_arxiv = ""
@@ -97,12 +95,7 @@ for  i in range (corpus.ndoc) :
         ch_arxiv += doc.get_text()
 
 
-#-----nettoyage des données ----
-
-
-
-
-      
+#-------Nettoyage des données 
 ch = nettoyer_texte(ch)
 ch_reddit = nettoyer_texte(ch_reddit)
 ch_arxiv = nettoyer_texte(ch_arxiv)
@@ -125,7 +118,6 @@ stopword = ["i", "me", "my", "myself", "we", "our",
             "any", "both", "each", "few", "more", "most", "other", "some", "such", 
             "no", "nor", "not", "only", "own", "same", "so", "than", "too", "very", 
             "s", "t", "can", "will", "just", "don", "should", "now","u","may","also","us","ai","e"]
-# on enlève u car dans reddit abbreviation de you 
 
 chaine = []
 chaine = ch.split(" ")
@@ -146,9 +138,9 @@ while "" in wordlist:
     wordlist.remove("")
     
 
-vocabulaire = set(wordlist)
+vocabulaire = set(wordlist) 
 
-#----------création du data frame
+#-------Création du data frame
 data_mot = pandas.DataFrame(columns=['vocab','occurrence','frequence'])
 
 i = 0
@@ -161,7 +153,8 @@ for word in vocabulaire :
 
 data_mot = data_mot.sort_values(by = 'frequence',ascending = False)
 
-#----------recupération des dates des articles
+
+#-------Recupération des dates des articles
 ch2=[]
 mots_utiles=["vaccine","pandemic","patients","pneumonia","deaths"]
 evolution_mot = pandas.DataFrame(columns=["mot clé","date"])
@@ -204,10 +197,8 @@ histogramme(grp3)
 histogramme(grp4)
 histogramme(grp5)
 """
-
-
           
-#--------creation nuage de mots 
+#--------Creation nuage de mots 
 nuage_mots(ch)
 nuage_mots(ch_reddit)
 nuage_mots(ch_arxiv)

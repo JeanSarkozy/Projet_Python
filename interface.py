@@ -2,13 +2,14 @@
 """
 Created on Thu Jan 14 12:35:50 2021
 
-@author: Chloé
+@author: Chloé et Pierre
 """
 
-#-------- interface
-# creation de l'interface 
+#-------Interface
+
+# import des modules
 from tkinter import * 
-#from main import *
+from main import *
 from PIL import Image, ImageTk 
 import os 
 
@@ -18,18 +19,17 @@ import os
 repertoire = os.getcwd()
 os.chdir(repertoire)
 
-#creer une premiere fenetre 
+
+#creer une premiere fenetre personnalisee
 window = Tk()
-
-
-# personnaliser la fenetre 
 window.title("Projet Python")
 window.geometry("1080x720")
 window.minsize(1080,720)
 window.config(background="#048B9A")
 
 
-# creer une nouvelle fenetre 
+#-------Fonctions 
+#Fonction permettant d'afficher le graphe de l'evolution du mot cle death
 def action1():
     win = Toplevel(window)
     win.geometry("1080x720")
@@ -46,6 +46,8 @@ def action1():
     canvas.pack()
     image.pack()
 
+
+#Fonction permettant d'afficher le graphe de l'evolution du mot cle vaccine
 def action2():
     win = Toplevel(window)
     win.geometry("1080x720")
@@ -62,6 +64,8 @@ def action2():
     canvas.pack()
     image.pack()
 
+
+#Fonction permettant d'afficher le graphe de l'evolution du mot cle patients
 def action3():
     win = Toplevel(window)
     win.geometry("1080x720")
@@ -77,7 +81,9 @@ def action3():
     label1=Label(canvas, image=image,bg="#048B9A")
     canvas.pack()
     image.pack()
-    
+
+
+#Fonction permettant d'afficher la description generale du corpus
 def create1():
     win = Toplevel(window)
     win.title("Projet Python")
@@ -88,8 +94,8 @@ def create1():
     texteLabel.pack()
     texteLabel1 = Label(win ,text="1) Voici les mots les plus frequents dans le corpus : ",font=("Arial",10),bg="#048B9A")
     texteLabel1.pack()
-  #  texteLabel2 = Label(win ,text=data_mot.head(10),font=("Arial",10),bg="#048B9A")
-  #  texteLabel2.pack()
+    texteLabel2 = Label(win ,text=data_mot.head(10),font=("Arial",10),bg="#048B9A")
+    texteLabel2.pack()
     texteLabel3 = Label(win ,text="2) Voici le nuage de mots : ",font=("Arial",10),bg="#048B9A")
     texteLabel3.pack()    
     image = PhotoImage(file=r"nuage_mot_all.png")
@@ -99,6 +105,9 @@ def create1():
     canvas.pack()
     image.pack()
     
+    
+
+#Fonction permettant d'afficher les nuages de mots Reddit&Arxiv
 def create2():
     win = Toplevel(window)
     win.title("Projet Python")
@@ -122,7 +131,8 @@ def create2():
     image1.pack()
     image2.pack()
     
-    
+
+#Fonction permettant d'afficher l'evolution des mots cles (fait appel aux fonctions action1, 2 et 3)
 def create3():
     win = Toplevel(window)
     win.title("Projet Python")
@@ -139,11 +149,12 @@ def create3():
     button3.pack(pady=1,fill=X)
     
     
-#ajouter texte
+#ajouter texte de la premiere page
 label_title = Label(window ,text="Coronavirus",font=("Arial",40),bg="#048B9A")
 label_title.pack()
 
-#ajouter bouton
+
+#ajouter boutons de la premiere page
 button1 = Button(window,text="Description generale",bg="#FEE347",font=("Arial",20),command = create1)
 button2 = Button (window,text="Nuages de mots Reddit&Arxiv",bg="#FEE347",font=("Arial",20),command = create2)
 button3 = Button (window,text="Evolution des mots",bg="#FEE347",font=("Arial",20),command = create3)
@@ -153,7 +164,5 @@ button2.pack(pady=1,fill=X)
 button3.pack(pady=1,fill=X)
 
 
-
-
-#afficher la fenetre 
+#afficher la fenetre de l'interface 
 window.mainloop()
